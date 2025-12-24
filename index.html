@@ -375,7 +375,7 @@ footer{
     <div class="store-slogan">Toko Roblox Termurah & Terpercaya</div>
   </div>
   <div class="store-note-bg">
-    <div class="store-note">Jangan Lupa Pesan Yang Banyak Dan Langganan Di Toko Kami</div>
+    <div class="store-note">Jangan Lupa Pesan Yang Banyak Dan Langganan Di Toko Kami Untuk Stok Belum Ready, Restock Tanggal 26-27 , Mohon Menunggu Ya Kak Kalo Mau Beli</div>
   </div>
 </header>
 
@@ -401,7 +401,7 @@ footer{
     <!-- Ganti link QRIS di sini -->
     <img src="https://i.ibb.co.com/Qjk9bNmn/qr-ID1025402216812-24-11-25-176398811-1763988111404.jpg">
     <button onclick="downloadQR()">⬇ Unduh QRIS</button>
-    <button onclick="hubungiAdmin()">💬 Konfirmasi Pembayaran</button>
+    <button onclick="hubungiAdmin()"> 💳 Konfirmasi Pembayaran</button>
   </div>
 </div>
 
@@ -445,25 +445,7 @@ products.forEach(p=>{
     <button onclick="add('${p[0]}',${p[1]})">Beli</button>
   </div>`;
 });
-  #popupAdd{
-  position:fixed;
-  bottom:100px;
-  left:50%;
-  transform:translateX(-50%) translateY(20px);
-  background:linear-gradient(135deg,#00ff9d,#00eaff);
-  color:#003;
-  padding:12px 22px;
-  border-radius:30px;
-  font-weight:800;
-  box-shadow:0 0 30px #00ff9d;
-  opacity:0;
-  pointer-events:none;
-  transition:.35s;
-  z-index:2500;
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
+  
 #popupAdd.show{
   opacity:1;
   transform:translateX(-50%) translateY(0);
