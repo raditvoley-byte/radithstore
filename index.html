@@ -641,7 +641,51 @@ footer{
   from{width:0%}
   to{width:100%}
 }
+.store-bg {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 14px;
+  background: url('https://i.ibb.co.com/gZBcPRtQ/IMG-20251224-154055.jpg') center/cover no-repeat;
+  position: relative;
+  overflow: hidden;
+}
 
+/* Efek neon hacker mengelilingi background */
+.store-bg::before,
+.store-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+.store-bg::before {
+  border: 2px solid rgba(0, 255, 157, 0.7); /* garis luar hijau */
+  box-shadow: 0 0 10px #00ff9d, 0 0 20px #00ff9d, 0 0 30px #00ff9d inset;
+  animation: neonGlow 2s infinite alternate;
+}
+
+.store-bg::after {
+  border: 1px dashed rgba(0, 255, 157, 0.5); /* garis putus-putus bergerak */
+  box-shadow: 0 0 8px #00ff9d inset;
+  animation: dashMove 1.5s linear infinite;
+}
+
+/* Glow berkedip */
+@keyframes neonGlow {
+  0% { box-shadow: 0 0 5px #00ff9d, 0 0 10px #00ff9d, 0 0 20px #00ff9d inset; }
+  50% { box-shadow: 0 0 15px #00ff9d, 0 0 25px #00ff9d, 0 0 35px #00ff9d inset; }
+  100% { box-shadow: 0 0 5px #00ff9d, 0 0 10px #00ff9d, 0 0 20px #00ff9d inset; }
+}
+
+/* Garis putus-putus bergerak */
+@keyframes dashMove {
+  0% { border-color: rgba(0,255,157,0.5); transform: rotate(0deg); }
+  50% { border-color: rgba(0,255,157,0.9); transform: rotate(180deg); }
+  100% { border-color: rgba(0,255,157,0.5); transform: rotate(360deg); }
+}
+  
 </style>
 </head>
 <body>
