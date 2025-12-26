@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radith Store - Fish It Coins</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Poppins,sans-serif;
+  /* Latar belakang web (ganti link di sini) */
+  background: url('https://i.ibb.co.com/B24wFF3L/IMG-20251224-221549.jpg') center/cover no-repeat;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* LOADING */
+#loading{
+  position:fixed;
+  inset:0;
+  background:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+#loading span{
+  font-size:3rem;
+  animation:spin 1.5s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* HEADER */
+header{
+  text-align:center;
+  padding:24px;
+  position:relative;
+  overflow:hidden;
+}
+
+/* Nama toko dengan background anime dan efek hijau */
+/* Ganti link anime di sini */
+.store-bg{
+  display:inline-block;
+  padding:10px 20px;
+  border-radius:14px;
+  background: url('https://i.ibb.co.com/gZBcPRtQ/IMG-20251224-154055.jpg') center/cover no-repeat;
+  position: relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.store-bg::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: rgba(0,255,153,0.2); /* efek hijau di samping */
+  border-radius:14px;
+}
+.store-name{
+  font-size:2rem;
+  font-weight:800;
+  color:#fff;
+  text-shadow:0 0 12px rgba(0,0,0,0.8);
+  position: relative;
+  z-index:1;
+  animation:glowText 1.5s infinite alternate;
+}
+@keyframes glowText{
+  0%{text-shadow:0 0 6px #00ff9d,0 0 12px #00ff9d;}
+  50%{text-shadow:0 0 12px #00ff9d,0 0 24px #00ff9d;}
+  100%{text-shadow:0 0 6px #00ff9d,0 0 12px #00ff9d;}
+}
+
+/* Slogan hijau */
+.store-slogan-bg{
+  display:inline-block;
+  padding:4px 12px;
+  margin-top:6px;
+  border-radius:12px;
+  background:#003300;
+  position:relative;
+  overflow:hidden;
+}
+.store-slogan-bg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle, #00ff99 1px, transparent 1px);
+  background-size:5px 5px;
+  animation:stars 4s linear infinite;
+}
+@keyframes stars{
+  0%{background-position:0 0;}
+  100%{background-position:100px 100px;}
+}
+.store-slogan{
+  font-size:1.2rem;
+  font-weight:700;
+  color:#00ff9d;
+  text-shadow:0 0 6px #00ff9d,0 0 12px #00ff9d;
+  position:relative;
+  z-index:1;
+}
+
+/* Catatan bergerak */
+.store-note-bg{
+  overflow:hidden;
+  margin-top:6px;
+  border-radius:10px;
+  background: linear-gradient(270deg,#ffcc00,#ff9900,#ffcc00);
+  background-size:300% 300%;
+  animation:bgGradientMove 23s linear infinite;
+  display:flex;
+}
+.store-note{
+  font-size:0.9rem;
+  font-weight:600;
+  padding:2px 10px;
+  color:#000;
+  white-space:nowrap;
+  animation:marquee 15s linear infinite;
+}
+@keyframes bgGradientMove{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+@keyframes marquee{
+  0%{transform:translateX(100%);}
+  100%{transform:translateX(-100%);}
+}
+
+/* PRODUCTS */
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+  padding:20px;
+  max-width:1100px;
+  margin:auto;
+}
+.card{
+  background:linear-gradient(145deg,#020617,#020617);
+  border-radius:18px;
+  padding:18px;
+  text-align:center;
+  box-shadow:0 0 30px rgba(0,234,255,.25);
+  animation:float 3s ease-in-out infinite;
+  transition:.3s;
+  position:relative;
+}
+.card:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 45px rgba(0,234,255,.6);
+}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+}
+.price{
+  color:#00ffcc;
+  font-weight:800;
+  font-size:1.1rem;
+}
+.card img{
+  width:100%;
+  border-radius:12px;
+  margin-bottom:10px;
+  box-shadow:0 0 20px #00ff9d; /* efek hijau di samping gambar produk */
+}
+
+/* Tambahan tombol beli */
+.card button{
+  margin-top:12px;
+  padding:12px;
+  width:100%;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg,#00eaff,#00ff9d);
+  font-weight:800;
+  cursor:pointer;
+  animation:glowButton 2s infinite alternate;
+}
+@keyframes glowButton{
+  0%{box-shadow:0 0 6px #00ff9d;}
+  50%{box-shadow:0 0 12px #00ff9d;}
+  100%{box-shadow:0 0 6px #00ff9d;}
+}
+
+/* CART ICON */
+#cartIcon{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+
+  width:60px;
+  height:60px;
+  font-size:26px;
+  color:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+
+  background:transparent; /* transparan */
+  box-shadow:0 0 15px #00ff9d,0 0 25px #00ff9d inset;
+  
+  cursor:pointer;
+  z-index:1000;
+  overflow:visible;
+
+  animation:glowHack 2s infinite alternate;
+}
+
+/* Background hacker dengan garis acak + pulse */
+#cartIcon::before{
+  content:"";
+  position:absolute;
+  top:-15px;
+  left:-15px;
+  right:-15px;
+  bottom:-15px;
+  border-radius:50%;
+  z-index:-1;
+  pointer-events:none;
+
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(0,255,157,0.2) 0px,
+      rgba(0,255,157,0.2) 2px,
+      transparent 2px,
+      transparent 6px
+    );
+  animation:
+    scanLine 1s linear infinite,
+    pulseHack 2s infinite alternate,
+    flickerHack 3s infinite alternate;
+}
+
+/* Glow berdenyut */
+@keyframes glowHack{
+  0%{box-shadow:0 0 15px #00ff9d,0 0 25px #00ff9d inset;}
+  50%{box-shadow:0 0 25px #00ff9d,0 0 40px #00ff9d inset;}
+  100%{box-shadow:0 0 15px #00ff9d,0 0 25px #00ff9d inset;}
+}
+
+/* Garis bergerak vertikal */
+@keyframes scanLine{
+  0%{background-position:0 0;}
+  100%{background-position:0 100%;}
+}
+
+/* Pulse halus */
+@keyframes pulseHack{
+  0%{opacity:0.6;}
+  50%{opacity:1;}
+  100%{opacity:0.6;}
+}
+
+/* Flicker acak untuk kesan hidup */
+@keyframes flickerHack{
+  0%,100%{opacity:0.7;}
+  25%{opacity:1;}
+  50%{opacity:0.5;}
+  75%{opacity:0.9;}
+}
+
+/* Hover efek */
+#cartIcon:hover{
+  transform:scale(1.2);
+  box-shadow:
+    0 0 35px #00ff9d,
+    0 0 50px #00ff9d inset;
+  transition:0.3s ease;
+}
+
+/* CART DRAWER */
+#cartPanel{
+  position:fixed;
+  top:0;
+  right:-80%;
+  width:80%;
+  max-width:360px;
+  height:80%;
+  background:
+    linear-gradient(rgba(2,6,23,0.85), rgba(2,6,23,0.85)),
+    url('https://i.ibb.co.com/mVM7Yd8F/IMG-20251226-192024.jpg')
+    center/cover no-repeat;
+  padding:20px;
+  transition:.4s;
+  z-index:1001;
+  display:flex;
+  flex-direction:column;
+  box-shadow:-10px 0 40px rgba(0,255,153,0.35);
+}
+#cartPanel{
+  border-radius:30px 0 0 30px;   /* sudut besar & halus */
+  padding:22px;
+}
+#cartPanel.active{right:0}
+
+.cart-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-weight:800;
+  color:#00ff9d;
+  text-shadow:0 0 6px #00ff9d,0 0 12px #00ff9d;
+  animation:glowText 1.5s infinite alternate;
+}
+.cart-header button{
+  background:none;
+  border:none;
+  color:#fff;
+  font-size:24px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+#cartItems{
+  flex:1;
+  overflow-y:auto;
+  margin-top:10px;
+}
+.cart-item{
+  font-size:.9rem;
+  margin:6px 0;
+  padding:6px;
+  background:rgba(0,255,153,0.1);
+  border-radius:6px;
+  box-shadow:0 0 10px rgba(0,255,153,0.2);
+  animation:glowText 1.5s infinite alternate;
+}
+
+.total{
+  font-weight:800;
+  margin-top:10px;
+  text-align:right;
+}
+.total span{
+  font-weight:800;
+  text-shadow:0 0 6px #00ff9d,0 0 12px #00ff9d;
+}
+
+.buy{
+  padding:12px;
+  border:none;
+  border-radius:14px;
+  background:#00ff9d;
+  font-weight:800;
+  cursor:pointer;
+  margin-top:10px;
+  text-align:center;
+  animation:glowButton 1.5s infinite alternate;
+}
+
+/* MODAL QR */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:3000;
+}
+
+.modal-close-top{
+  position:absolute;
+  top:18px;
+  right:18px;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:none;
+  color:#fff;
+  font-size:26px;
+  font-weight:800;
+  border:none;
+  cursor:pointer;
+  text-align:center;
+  line-height:1;
+}
+.modal-box{
+  background:rgba(2,6,23,0.8); /* latar QRIS 80% transparan */
+  padding:24px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 0 45px #ff4500;
+  position:relative;
+}
+.modal-box img{
+  width:320px;
+  border-radius:14px;
+  margin-bottom:12px;
+  box-shadow:0 0 20px #00ff9d; /* efek hijau di samping QRIS */
+}
+.modal-box button{
+  margin-top:6px;
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:14px;
+  background:#00ff9d;
+  font-weight:800;
+  cursor:pointer;
+}
+
+/* COIN EFFECT */
+.coin{
+  position:fixed;
+  font-size:24px;
+  animation:coinFly 1s forwards;
+}
+@keyframes coinFly{
+  from{opacity:1;transform:translateY(0)}
+  to{opacity:0;transform:translateY(-140px)}
+}
+
+/* Owner */
+footer{
+  text-align:center;
+  padding:12px;
+  font-size:0.9rem;
+  color:#00ff9d;
+}
+
+/* SLIDE GAMBAR */
+.sponsor{
+  max-width:1000px;
+  margin:-5px auto;
+  overflow:hidden;
+}
+
+.sponsor-track{
+  display:flex;
+  gap:20px;
+  flex-wrap:nowrap;
+  width:max-content;
+}
+
+.sponsor-track img{
+  min-width:130px;
+  height:90px;
+  object-fit:contain;
+  border-radius:12px;
+
+  /* BINGKAI HIJAU */
+  border:2px solid #00ff9d;
+  padding:6px;
+  background:#020617;
+  box-shadow:
+    0 0 8px #00ff9d,
+    inset 0 0 8px rgba(0,255,157,0.6);
+}
+
+/* BACKGROUND HIJAU SLIDER */
+..sponsor{
+  position:relative;
+  background:#020617;
+  overflow:hidden;
+}
+
+.sponsor::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    transparent,
+    rgba(0,255,157,0.25),
+    transparent
+  );
+  animation:scan 3s linear infinite;
+}
+
+@keyframes scan{
+  from{transform:translateY(-100%);}
+  to{transform:translateY(100%);}
+}
+
+/* AREA SPONSOR */
+.sponsor{
+  margin:-5px auto;
+  padding:20px 0 30px;
+  max-width:1100px;
+  border-radius:20px;
+  position:relative;
+  background:
+    linear-gradient(135deg, #001a0f, #003d1f);
+  box-shadow:0 0 40px rgba(0,255,157,0.25);
+  overflow:hidden;
+}
+
+/* POLA DIGITAL */
+.sponsor::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle, rgba(0,255,157,.15) 1px, transparent 1px);
+  background-size:6px 6px;
+  animation:dotsMove 6s linear infinite;
+  pointer-events:none;
+}
+
+@keyframes dotsMove{
+  from{background-position:0 0;}
+  to{background-position:60px 60px;}
+}
+
+/* JUDUL */
+.sponsor-title{
+  text-align:center;
+  margin-bottom:12px;
+  font-size:1.2rem;
+  font-weight:800;
+  color:#00ff9d;
+  text-shadow:0 0 6px #00ff9d;
+  position:relative;
+  z-index:2;
+}
+.cart-header h3{
+  background:#020617;
+  border:2px solid #00ff9d;
+  padding:6px 14px;
+  border-radius:12px;
+  color:#00ff9d;
+  text-shadow:0 0 6px #00ff9d;
+  box-shadow:0 0 20px rgba(0,255,157,0.6);
+}
+.card{
+  background:
+    linear-gradient(145deg, #002b1a, #020617);
+  border:2px solid rgba(0,255,157,0.4);
+  border-radius:18px;
+  padding:18px;
+  text-align:center;
+  box-shadow:
+    0 0 25px rgba(0,255,157,.25),
+    inset 0 0 15px rgba(0,255,157,.1);
+}
+.modal-box::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle, rgba(0,255,157,.18) 1px, transparent 1px);
+  background-size:6px 6px;
+  animation:qrDots 6s linear infinite;
+  border-radius:26px;
+  pointer-events:none;
+}
+
+@keyframes qrDots{
+  from{background-position:0 0;}
+  to{background-position:60px 60px;}
+}
+.scan-qris{
+  margin:12px auto 16px;
+  padding:12px 24px;
+  width:fit-content;
+  border-radius:18px;
+
+  background:linear-gradient(135deg,#003d1f,#00ff9d);
+
+  color:#002b1a;              /* warna teks lebih gelap */
+  font-size:1.3rem;
+  font-weight:900;            /* PALING TEBAL */
+  letter-spacing:1px;
+  text-align:center;
+
+  text-shadow:
+    0 1px 0 #ffffff,          /* bikin teks tajam */
+    0 0 4px rgba(0,0,0,.3);
+
+  box-shadow:
+    0 0 20px rgba(0,255,157,.7),
+    inset 0 0 12px rgba(255,255,255,.35);
+
+  animation:scanGlow 1.5s ease-in-out infinite;
+}
+.qris-bg{
+  background:
+    linear-gradient(
+      rgba(0,255,157,.35),
+      rgba(0,0,0,.9)
+    ),
+    url("https://i.ibb.co.com/d4HVNY0x/HD-wallpaper-tatsumaki-anime-cute-anime-one-punch-man.jpg");
+
+  background-size:cover;
+  background-position:center;
+
+  padding:40px 16px;
+  border-radius:26px;
+
+  box-shadow:0 0 50px rgba(0,255,157,.8);
+}
+#loading{
+  position:fixed;
+  inset:0;
+  background:#000;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+
+.loading-box{
+  width:70%;
+  max-width:300px;
+  height:14px;
+  background:#111;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 0 20px rgba(0,255,157,.4);
+}
+
+.loading-bar{
+  width:0%;
+  height:100%;
+  background:linear-gradient(90deg,#00ff9d,#00eaff);
+  animation:loadBar 1.5s forwards;
+}
+
+.loading-text{
+  margin-top:12px;
+  font-weight:700;
+  color:#00ff9d;
+  text-shadow:0 0 8px #00ff9d;
+  letter-spacing:1px;
+}
+
+@keyframes loadBar{
+  from{width:0%}
+  to{width:100%}
+}
+.store-bg {
+  display: inline-block;
+  padding: 20px 120px;
+  border-radius: 14px;
+  background: url('https://i.ibb.co.com/gZBcPRtQ/IMG-20251224-154055.jpg') center/cover no-repeat;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efek neon hacker mengelilingi background */
+.store-bg::before,
+.store-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+.store-bg::before {
+  border: 4px solid rgba(0, 255, 157, 0.7); /* garis luar hijau */
+  box-shadow: 0 0 20px #00ff9d, 0 0 120px #00ff9d, 0 0 30px #00ff9d inset;
+  animation: neonGlow 2s infinite alternate;
+}
+
+.store-bg::after {
+  border: 4px dashed rgba(0, 255, 157, 0.5); /* garis putus-putus bergerak */
+  box-shadow: 0 0 8px #00ff9d inset;
+  animation: dashMove 1.5s linear infinite;
+}
+
+/* Glow berkedip */
+@keyframes neonGlow {
+  0% { box-shadow: 0 0 5px #00ff9d, 0 0 10px #00ff9d, 0 0 20px #00ff9d inset; }
+  50% { box-shadow: 0 0 15px #00ff9d, 0 0 25px #00ff9d, 0 0 35px #00ff9d inset; }
+  100% { box-shadow: 0 0 5px #00ff9d, 0 0 10px #00ff9d, 0 0 20px #00ff9d inset; }
+}
+
+/* Garis putus-putus bergerak */
+@keyframes dashMove {
+  0% { border-color: rgba(0,255,157,0.5); transform: rotate(0deg); }
+  50% { border-color: rgba(0,255,157,0.9); transform: rotate(180deg); }
+  100% { border-color: rgba(0,255,157,0.5); transform: rotate(360deg); }
+}
+  #loading {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  background: #000 url('https://i.ibb.co/B24wFF3L/IMG-20251224-221549.jpg') center/cover no-repeat;
+  overflow: hidden;
+}
+
+/* Efek garis bergerak seperti hacker */
+#loading::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 255, 157, 0.15) 0px,
+    rgba(0, 255, 157, 0.15) 2px,
+    transparent 2px,
+    transparent 6px
+  );
+  animation: scanLine 1s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scanLine {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100%; }
+}
+.loading-box {
+  width: 70%;
+  max-width: 300px;
+  height: 14px;
+  background: #111;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 255, 157, 0.4);
+  position: relative;
+}
+
+/* Bar yang bergerak neon */
+.loading-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #00ff9d, #00eaff, #00ff9d);
+  animation: loadBar 2s linear forwards, neonGlow 1.5s ease-in-out infinite alternate;
+  box-shadow: 0 0 10px #00ff9d, 0 0 20px #00eaff;
+}
+
+/* Bar bercahaya neon */
+@keyframes neonGlow {
+  0% { box-shadow: 0 0 5px #00ff9d, 0 0 15px #00eaff; }
+  50% { box-shadow: 0 0 15px #00ff9d, 0 0 30px #00eaff; }
+  100% { box-shadow: 0 0 5px #00ff9d, 0 0 15px #00eaff; }
+}
+
+/* Animasi isi bar */
+@keyframes loadBar {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+/* Efek partikel neon bergerak di atas bar */
+.loading-bar::before {
+  content: '';
+  position: absolute;
+  top: -3px; left: -10px;
+  width: 10px; height: 20px;
+  background: #00ff9d;
+  border-radius: 50%;
+  filter: blur(2px);
+  animation: particleMove 2s linear infinite;
+}
+
+@keyframes particleMove {
+  0% { transform: translateX(0); opacity: 1; }
+  100% { transform: translateX(300px); opacity: 0; }
+}
+.store-bg {
+  display: inline-block;
+  padding: 20px 120px;
+  border-radius: 14px;
+  background: url('https://i.ibb.co.com/zHPN5kTF/file-0000000080ac71fa91f7441193e670ef.png') center/cover no-repeat;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Garis neon mengelilingi background */
+.store-bg::before,
+.store-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+/* Garis luar glow */
+.store-bg::before {
+  border: 4px solid rgba(0, 255, 157, 0.7);
+  box-shadow: 0 0 20px #00ff9d, 0 0 120px #00ff9d, 0 0 30px #00ff9d inset;
+  animation: neonGlow 2s infinite alternate;
+}
+
+/* Garis putus-putus bergerak */
+.store-bg::after {
+  border: 4px dashed rgba(0, 255, 157, 0.5);
+  box-shadow: 0 0 8px #00ff9d inset;
+  animation: dashMove 1.5s linear infinite;
+}
+
+/* Glow berkedip */
+@keyframes neonGlow {
+  0% { box-shadow: 0 0 5px #00ff9d, 0 0 10px #00ff9d, 0 0 20px #00ff9d inset; }
+  50% { box-shadow: 0 0 15px #00ff9d, 0 0 25px #00ff9d, 0 0 35px #00ff9d inset; }
+  100% { box-shadow: 0 0 5px #00ff9d, 0 0 10px #00ff9d, 0 0 20px #00ff9d inset; }
+}
+
+/* Garis putus-putus bergerak */
+@keyframes dashMove {
+  0% { border-color: rgba(0,255,157,0.5); transform: rotate(0deg); }
+  50% { border-color: rgba(0,255,157,0.9); transform: rotate(180deg); }
+  100% { border-color: rgba(0,255,157,0.5); transform: rotate(360deg); }
+}
+
+/* Partikel hijau kecil bergerak */
+.store-bg span.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #00ff9d;
+  border-radius: 50%;
+  animation: particleMove 3s linear infinite;
+}
+
+@keyframes particleMove {
+  0% { transform: translate(0,0); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translate(200px, 100px); opacity: 0; }
+}
+/* CART DRAWER */
+#cartPanel {
+  position: fixed;
+  top: 0;
+  right: -80%; /* posisi awal di luar layar */
+  width: 80%;
+  max-width: 360px;
+  height: 80%;
+  background: linear-gradient(rgba(2,6,23,0.85), rgba(2,6,23,0.85)), /"bacround keranjang*/
+              url('https://i.ibb.co.com/mVM7Yd8F/IMG-20251226-192024.jpg') center/cover no-repeat;
+  padding: 20px;
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -10px 0 40px rgba(0,255,153,0.35);
+  border-radius: 30px 0 0 30px;
+
+  /* Tambahkan transisi */
+  transition: right 0.5s ease, opacity 0.5s ease;
+  opacity: 0; /* awalnya transparan */
+}
+
+/* Saat aktif */
+#cartPanel.active {
+  right: 0; /* muncul di layar */
+  opacity: 1;
+}/* Efek neon di sekitar QRIS modal box */
+.modal-box {
+  position: relative;
+  background: rgba(2,6,23,0.85);
+  padding: 24px;
+  border-radius: 20px;
+  text-align: center;
+  overflow: hidden;
+  box-shadow: 0 0 20px #00ff9d, 0 0 40px #00ff9d inset;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+/* Neon glow statis */
+.modal-box::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 26px;
+  pointer-events: none;
+  border: 2px solid rgba(0,255,157,0.7);
+  box-shadow: 0 0 30px #00ff9d, 0 0 60px #00ff9d inset;
+  animation: neonBorder 2s linear infinite alternate;
+}
+
+/* Animasi neon glow */
+@keyframes neonBorder {
+  0% { box-shadow: 0 0 10px #00ff9d, 0 0 20px #00ff9d inset; }
+  50% { box-shadow: 0 0 25px #00ff9d, 0 0 50px #00ff9d inset; }
+  100% { box-shadow: 0 0 10px #00ff9d, 0 0 20px #00ff9d inset; }
+}
+
+/* Tombol X keranjang & QRIS */
+.cart-header button,
+.modal-close-top {
+  position: absolute;      /* agar posisinya tetap di pojok */
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(135deg, #002b1a, #005532); /* hijau gelap */
+  color: #00ff9d;             
+  font-weight: 800;
+  font-size: 24px;
+  border: 2px solid #00ff9d;
+  border-radius: 12px;        
+  padding: 6px 14px;
+  cursor: pointer;
+  box-shadow:
+    0 0 10px #00ff9d,
+    0 0 20px #00ff9d inset;
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: glowText 1.5s infinite alternate;
+}
+
+.modal-close-top:hover {
+  transform: scale(1.1);
+  box-shadow:
+    0 0 15px #00ff9d,
+    0 0 25px #00ff9d inset;
+}
+
+/* Tombol QRIS neon hacker ringan */
+.modal-box button {
+  position: relative;
+  overflow: hidden;
+  background: #003d1f;      /* hijau gelap polos */
+  color: #00ff9d;           /* teks neon */
+  font-weight: 1000;
+  font-size: 1rem;
+  border: 2px solid #00ff9d;
+  border-radius: 14px;
+  padding: 12px 0;
+  cursor: pointer;
+  box-shadow: 0 0 8px #00ff9d, 0 0 15px #00ff9d inset;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Hover efek neon sederhana */
+.modal-box button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px #00ff9d, 0 0 25px #00ff9d inset;
+}
+
+/* Catatan QRIS neon hacker */
+.qr-note-bg {
+  overflow: hidden;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  background: linear-gradient(270deg,#ffcc00,#ff9900,#ffcc00);
+  background-size: 300% 300%;
+  animation: bgGradientMove 10s linear infinite;
+  display: flex;
+  justify-content: center;
+}
+
+.qr-note {
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 6px 10px;
+  color: #000;
+  white-space: nowrap;
+  animation: marquee 12s linear infinite;
+  text-shadow: 0 0 4px #00ff9d;
+}
+
+/* Animasi gradient bergerak */
+@keyframes bgGradientMove {
+  0% { background-position:0% 50%; }
+  50% { background-position:100% 50%; }
+  100% { background-position:0% 50%; }
+}
+
+/* Animasi marquee horizontal */
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+/* ANIMASI QRIS */
+.modal {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* BOX QRIS */
+.modal-box {
+  transform: scale(0.85) translateY(20px);
+  opacity: 0;
+  transition: all 0.35s ease;
+}
+
+/* Saat aktif */
+.modal.active .modal-box {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+.buy-popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.8);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+
+.buy-popup.show{
+  display:flex;
+}
+
+.buy-box{
+  background:linear-gradient(145deg,#002b1a,#020617);
+  border:2px solid #00ff9d;
+  box-shadow:0 0 30px #00ff9d;
+  padding:24px;
+  border-radius:18px;
+  text-align:center;
+  color:#00ff9d;
+  width:260px;
+  animation:scaleIn .25s ease;
+}
+
+.buy-actions{
+  display:flex;
+  gap:10px;
+  margin-top:14px;
+}
+
+.buy-actions button{
+  flex:1;
+  padding:10px;
+  border-radius:12px;
+  border:2px solid #00ff9d;
+  background:#003d1f;
+  color:#00ff9d;
+  font-weight:800;
+  cursor:pointer;
+}
+
+@keyframes scaleIn{
+  from{transform:scale(.8);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+.owner-box {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 16px;
+  margin: 10px 0;
+
+  /* 🔥 BACKGROUND DIPAKSA MUNCUL */
+  background-color: #001a12 !important;
+
+  border: 2px solid #00ff9d;
+  border-radius: 12px;
+
+  box-shadow:
+    0 0 8px rgba(0,255,157,0.6),
+    inset 0 0 10px rgba(0,255,157,0.25);
+
+  font-family: monospace;
+  transform: scale(0.94);
+  animation: softGlow 3.5s ease-in-out infinite;
+
+  z-index: 10;
+}
+
+/* TEKS */
+.owner-box .label {
+  color: #00ff9d;
+  font-weight: 900;
+  font-size: 13px;
+}
+
+.owner-box .value {
+  color: #eafff6;
+  font-weight: 900;
+  font-size: 13px;
+
+/* 🔹 ANIMASI HALUS */
+@keyframes softGlow {
+  0% {
+    box-shadow: 0 0 6px rgba(0,255,157,0.4),
+                inset 0 0 6px rgba(0,255,157,0.2);
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(0,255,157,0.8),
+                inset 0 0 12px rgba(0,255,157,0.35);
+  }
+  100% {
+    box-shadow: 0 0 6px rgba(0,255,157,0.4),
+                inset 0 0 6px rgba(0,255,157,0.2);
+  }
+}
+
+</style>
+</head>
+<body>
+
+<div id="loading">
+  <div class="loading-box">
+    <div class="loading-bar"></div>
+  </div>
+  <div class="loading-text">Loading...</div>
+</div>
+
+<header>
+  <div class="store-bg">
+    <h1 class="store-name">Radith Store</h1>
+  </div>
+  <div class="store-slogan-bg">
+    <div class="store-slogan">Toko Roblox Termurah & Terpercaya</div>
+  </div>
+  <div class="store-note-bg">
+    <div class="store-note">“Dapatkan Coins & Ikan Favoritmu Sekarang! Dengan Harga Yang Terjangkau , Next Event Tanggal 30 December 2025 🪩 </div>
+  </div>
+</header>
+<!-- SLIDE GAMBAR -->
+<section class="sponsor">
+  <div class="sponsor-track" id="sponsorTrack">
+    <img src="https://i.ibb.co.com/ccpHc5wQ/Black-and-Pink-Modern-Metaverse-Presentation-20251225-104057-0000.png">
+    <img src="https://i.ibb.co.com/ynJcxvpD/2-20251226-211153-0001.jpg">
+    <img src="https://i.ibb.co.com/9HNSFrzW/4-20251226-211153-0003.jpg">
+    <img src="https://i.ibb.co.com/GQfsgwzW/3-20251226-211153-0002.jpg">
+    <img src="https://i.ibb.co.com/GQWyccGx/5-20251226-211935-0004.jpg">
+  </div>
+</section>
+
+<section class="products" id="products"></section>
+
+<div id="cartIcon" onclick="toggleCart()">🛍</div>
+
+
+<div id="cartPanel">
+  <div class="cart-header">
+    <h3>Keranjang</h3>
+    <button onclick="toggleCart()">✕</button>
+  </div>
+  <div id="cartItems"></div>
+  <div class="total">Total: Rp <span id="total">0</span> | Jumlah: <span id="totalQty">0</span></div>
+  <button class="buy" onclick="openQR()">Bayar</button>
+</div>
+
+<!-- MODAL QR -->
+<div class="modal" id="qrModal">
+  <button class="modal-close-top" onclick="closeQR()">✕</button>
+ <div class="modal-box">
+    <div class="scan-qris">
+  SCAN QRIS
+</div>
+    <!-- Ganti link QRIS di sini -->
+    <img src="https://i.ibb.co.com/Qjk9bNmn/qr-ID1025402216812-24-11-25-176398811-1763988111404.jpg">
+    <button onclick="downloadQR()">♻️ Unduh QRIS</button>
+    <button onclick="hubungiAdmin()">🫂 Konfirmasi Pembayaran</button>
+  </div>
+</div>
+
+<footer>
+
+<!-- POPUP BELI -->
+<div id="buyPopup" class="buy-popup">
+  <div class="buy-box">
+    <h2>🛍 Ditambahkan</h2>
+    <p>Produk masuk ke keranjang</p>
+
+    <div class="buy-actions">
+      <button onclick="closeBuyPopup()">Lanjut</button>
+    </div>
+  </div>
+</div>
+
+<div class="owner-box">
+  <span class="label">OWNER</span>
+  <span class="value">Raditya H.P</span>
+</div>
+
+<div class="owner-box">
+  <span class="label">GMAIL</span>
+  <span class="value">raditvoley@gmail.com</span>
+</div>
+
+</footer>
+
+<script>
+
+setTimeout(()=>loading.style.display="none",2000);
+
+/* Produk termasuk foto baru */
+/* Ganti link foto produk di sini */
+const products=[
+  // COINS
+  ["1 M COINS FISH IT",5000,"https://i.ibb.co.com/wNtQcFrR/Game-Roblox-Fish-It-2.jpg"],
+  ["2 M COINS FISH IT",7500,"https://i.ibb.co.com/wNtQcFrR/Game-Roblox-Fish-It-2.jpg"],
+  ["3 M COINS FISH IT",12000,"https://i.ibb.co.com/wNtQcFrR/Game-Roblox-Fish-It-2.jpg"],
+  ["5 M COINS FISH IT",15000,"https://i.ibb.co.com/wNtQcFrR/Game-Roblox-Fish-It-2.jpg"],
+  ["6 M COINS FISH IT",17000,"https://i.ibb.co.com/wNtQcFrR/Game-Roblox-Fish-It-2.jpg"],
+  ["7 M COINS FISH IT",20000,"https://i.ibb.co.com/wNtQcFrR/Game-Roblox-Fish-It-2.jpg"],
+  ["8 M COINS FISH IT",21500,"https://i.ibb.co.com/wNtQcFrR/Game-Roblox-Fish-It-2.jpg"],
+  ["10 M COINS FISH IT",25000,"https://i.ibb.co.com/wNtQcFrR/Game-Roblox-Fish-It-2.jpg"],
+
+  // IKAN
+  ["Hantu Hiu",4000,"https://i.ibb.co.com/9H9rfDmG/IMG-20251226-143855.jpg"],
+  ["Laba-laba Kuil",5000,"https://i.ibb.co.com/MxphHSQ2/IMG-20251226-143903.jpg"],
+  ["Ikan Tulang 265T",12000,"https://i.ibb.co.com/hR1RS1DG/IMG-20251226-143929.jpg"],
+  ["Big King Jelly 199T",14450,"https://i.ibb.co.com/JFWCJ19m/IMG-20251226-143917.jpg"]
+];
+
+let cart=[],cartCount={},total=0,totalQty=0;
+const prodDiv=document.getElementById("products");
+const cartItems=document.getElementById("cartItems");
+
+products.forEach(p=>{
+  prodDiv.innerHTML+=`
+  <div class="card">
+    <img src="${p[2]}">
+    <h3>${p[0]}</h3>
+    <div class="price">Rp ${p[1]}</div>
+    <button onclick="add('${p[0]}',${p[1]}); showBuyPopup()">Beli</button>
+  </div>`;
+});
+
+function add(name, price){
+  if(cartCount[name]) cartCount[name]++;
+  else cartCount[name]=1;
+  cart.push([name,price]);
+  total+=price;
+  totalQty++;
+  renderCart();
+  coinEffect();
+}
+
+function renderCart(){
+  cartItems.innerHTML="";
+  for(const key in cartCount){
+    const itemTotal=cart.filter(i=>i[0]===key).length;
+    cartItems.innerHTML+=`<div class="cart-item">${key} x ${itemTotal} - Rp ${cart.filter(i=>i[0]===key).reduce((a,b)=>a+b[1],0)}</div>`;
+  }
+  document.getElementById("total").innerText=total;
+  document.getElementById("totalQty").innerText=totalQty;
+}
+
+function toggleCart(){cartPanel.classList.toggle("active")}
+function openQR(){
+  qrModal.style.display = "flex";
+  setTimeout(() => {
+    qrModal.classList.add("active");
+  }, 10);
+}
+
+function closeQR(){
+  qrModal.classList.remove("active");
+  setTimeout(() => {
+    qrModal.style.display = "none";
+  }, 350);
+}
+
+function hubungiAdmin(){
+  let msg="Halo Admin, saya sudah membayar.%0A%0A";
+  for(const key in cartCount){
+    const qty=cartCount[key];
+    const totalItem=cart.filter(i=>i[0]===key).reduce((a,b)=>a+b[1],0);
+    msg+=`- ${key} x${qty} Rp ${totalItem}%0A`;
+  }
+  msg+=`%0ATotal: Rp ${total} | Jumlah: ${totalQty}`;
+  window.open("https://wa.me/628993360673?text="+msg,"_blank");
+}
+
+function downloadQR(){
+  const link=document.createElement("a");
+  link.href="https://i.ibb.co.com/Qjk9bNmn/qr-ID1025402216812-24-11-25-176398811-1763988111404.jpg";
+  link.download="QRIS.png";
+  link.click();
+}
+
+function coinEffect(){
+  const c=document.createElement("div");
+  c.className="coin";
+  c.innerText="🪙";
+  c.style.left=Math.random()*innerWidth+"px";
+  c.style.top=innerHeight-60+"px";
+  document.body.appendChild(c);
+  setTimeout(()=>c.remove(),1000);
+}
+/* SLIDE INFINITE */
+document.addEventListener("DOMContentLoaded",()=>{
+  const track=document.getElementById("sponsorTrack");
+  let x=0;
+  const speed=0.7; // atur kecepatan
+
+  // duplikat agar jalan terus
+  track.innerHTML += track.innerHTML;
+
+  function run(){
+    x -= speed;
+    if(Math.abs(x) >= track.scrollWidth / 2){
+      x = 0;
+    }
+    track.style.transform = `translateX(${x}px)`;
+    requestAnimationFrame(run);
+  }
+  run();
+});
+function showBuyPopup(){
+  document.getElementById("buyPopup").classList.add("show");
+}
+
+function closeBuyPopup(){
+  document.getElementById("buyPopup").classList.remove("show");
+}
+
+</script>
+
+</body>
+</html>
