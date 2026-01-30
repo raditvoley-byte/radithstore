@@ -1102,7 +1102,32 @@ footer{
                 inset 0 0 6px rgba(0,255,157,0.2);
   }
 }
+.store-logo{
+  width: 320px;
+  height: 140px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+}
 
+/* background blur */
+.store-logo::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:url("logo.jpg") center/cover no-repeat;
+  filter: blur(12px) brightness(.7);
+  transform: scale(1.2);
+}
+
+/* gambar utama */
+.logo-main{
+  position: relative;
+  z-index:2;
+  height:100%;
+  object-fit: contain;
+  }
+  
 </style>
 </head>
 <body>
@@ -1266,7 +1291,7 @@ function hubungiAdmin(){
     msg+=`- ${key} x${qty} Rp ${totalItem}%0A`;
   }
   msg+=`%0ATotal: Rp ${total} | Jumlah: ${totalQty}`;
-  window.open("https://wa.me/6289524515316?text="+msg,"_blank");
+  window.open("https://wa.me/628993360673?text="+msg,"_blank");
 }
 
 function downloadQR(){
